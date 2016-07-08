@@ -16,5 +16,11 @@ Here's the pinout:
 ```
 Warning: The NES-controller originally operates with 5 Volts but since the Raspberry only handles a maximum of 3.3 V input-voltage, I'd recommend you to stick with the 3.3 V in case you don't want to destroy your Raspberry Pi (If you'd input 5V to your NES-controller, it will ouput 5V and potentially kill your Raspberry.)
 
+# Usage
+Using nes-ctrl.py is easy. 
+```
+import nesctrl.py
+```
+Before being able to read the state of the controller, you have ``` nesctrl.setup(CLOCK, LATCH, DATA) ``` once (where the parameters are the pin numbers (following the Broadcom pin numbering scheme) you are using) 
 
 
