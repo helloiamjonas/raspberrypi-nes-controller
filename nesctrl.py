@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """ ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
-By Jonas U.
+By github.com/helloiamjonas
 
 The following code is based on the Arduino-version written in C on http://forum.arduino.cc/index.php?topic=8481.0  
 (-> so this person did the actual work, thank you kind stranger)
