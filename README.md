@@ -1,5 +1,6 @@
 # Use a NES-controller with your Raspberry Pi
-I tried to connect a NES-controller with my Raspberry Pi which turned out to be pretty easy due to the fact that other persons figured out how NES-controllers work: my code is just the python3 implementation of the logic behind some C code written for the Arduino-platform, so thank you kind stranger (code given at the following link: http://forum.arduino.cc/index.php?topic=8481.0) 
+I tried to connect a NES-controller with my Raspberry Pi which turned out to be pretty easy due to the fact that other persons figured out how NES-controllers work: my code is just the python3 implementation of the logic behind some C code written for the Arduino-platform, so thank you kind stranger 
+(code given at the following link: http://forum.arduino.cc/index.php?topic=8481.0) 
 
 # Connect the Pins
 Just connect the pins directly with the NES-controller, no electrical-engineering degree required.
