@@ -1,4 +1,4 @@
-# Use a NES-controller with your Raspberry Pi
+# Use a NES-controller with your Raspberry Pi (beta!)
 I tried to connect a NES-controller with my Raspberry Pi (I used the B-revision of the first model) which turned out to be pretty easy due to the fact that other persons figured out how NES-controllers work: my code is just the python3 implementation of the logic behind [some C code](http://forum.arduino.cc/index.php?topic=8481.0) written for the Arduino-platform, so thank you kind stranger(s). 
 
 
@@ -23,7 +23,7 @@ Just ```import nesctrl```. It depends on the modules RPi-GPIO and time, which co
 
 Before being able to read the state of the controller, you have to  ``` nesctrl.setup(CLOCK, LATCH, DATA) ``` once (where the parameters are the pin numbers (following the Broadcom pin numbering scheme) you are using for the  given purposes) 
 
-Then you can call ```nesctrl.read_controller_state()``` whenever you want to read the state of your NES-controller. This function returns a list witch 8 elements, one for every button. The element is 0 if the button is pressed, and 0 if it is not pressed. 
+Then you can call ```nesctrl.read_controller_state()``` whenever you want to read the state of your NES-controller. This function returns a list witch 8 elements (one for every button; the same button always has the same index which can therefore be used to identify which button was pressed). The element is 0 if the button is pressed, and 0 if it is not pressed 
 
 Additionally, you might want to call the ``` nesctrl.print_buttons(pressed_buttons)``` functions, where pressed_buttons is the mentioned list.
 
