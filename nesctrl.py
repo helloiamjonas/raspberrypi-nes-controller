@@ -29,8 +29,8 @@ import RPi.GPIO as gpio
 import time
 import collections
 
-# necessary to prepare the controller for the first time
-# -> only sideeffects, no return values 
+""" necessary to prepare the controller for the first time
+    -> only sideeffects, no return values """ 
 def setup():
     # Use Broadcom gpio numbering scheme
     gpio.setmode(gpio.BCM)
@@ -43,10 +43,10 @@ def setup():
     gpio.output(LATCH, gpio.HIGH)
 
 
-# assumes that the global variables CLOCK, LATCH and DATA are set
-# -> returns list of pressed buttons
+""" assumes that the global variables CLOCK, LATCH and DATA are set
+    -> returns list of pressed buttons """
 def read_controller_state():
-    """ parses the pressed_buttons_list ->returns dictionary of controller state"""
+    """ parses the pressed_buttons_list -> returns dictionary of controller state """
     def parse_pressed_buttons(pressed_buttons):
         # has to be ordered because the position of a element (True for pressed, False for not pressed)
         # in the pressed_buttons list determines the button it is associated with
@@ -56,7 +56,7 @@ def read_controller_state():
             controller_state[button] = pressed_buttons[i]
             i += 1
         return controller_state
-
+    
     pressed_buttons = []
 
     gpio.output(CLOCK, gpio.LOW)
@@ -80,15 +80,13 @@ def read_controller_state():
     
     return parse_pressed_buttons(pressed_buttons) 
             
-
-
+            
 def cleanup():
     gpio.cleanup()
 
 
-
-# (DEBUG-FUNCTION) assumes controller state array in original order
-# -> prints names of pressed buttons and returns them
+""" (DEBUG-FUNCTION) assumes controller state array in original order
+    -> prints names of pressed buttons and returns them """
 def debug_print_buttons(controller_state):
     output_string = "Button(s) pressed:"
     no_button_pressed = True
@@ -102,9 +100,9 @@ def debug_print_buttons(controller_state):
         print(output_string + " None")
        
              
-# (DEBUG-FUNCTION)
+""" (DEBUG-FUNCTION) asks user of debug mode for pins to input """
 def debug_input_pins():
-    print("Input your pins following the Broadcom Gpio numbering scheme")
+    print("Input your pins following the Broadcom gpio numbering scheme")
     try:
         CLOCK = int(input("CLOCK: "))
         LATCH = int(input("LATCH: "))
