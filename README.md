@@ -15,7 +15,7 @@ Here's the pinout:
 ```
 Warning: The NES-controller originally operates with 5 Volts but since the Raspberry only handles a maximum of 3.3 V input-voltage, I'd recommend you to stick with the 3.3 V in case you don't want to destroy your Raspberry Pi (If you gave 5 V input to your NES-controller, it'd ouput 5V and potentially kill your Raspberry.)
 
-[image](https://cloud.githubusercontent.com/assets/20270187/16710403/fe80800a-462c-11e6-8d20-03cd5cbd9162.jpg)
+(https://cloud.githubusercontent.com/assets/20270187/16710403/fe80800a-462c-11e6-8d20-03cd5cbd9162.jpg)
 
 ## Usage (Python 3.x)
 
