@@ -18,8 +18,8 @@ Warning: The NES-controller originally operates with 5 Volts but since the Raspb
 
 ## Usage
 Using nesctrl.py is easy. 
-
-Just ```import nesctrl```. It depends on the modules ```RPi-GPIO``` and ```time``` which come pre-installed with the current Raspian-Jesse for the Raspberry Pi so you shouldn't have to care about it. Chose your Version (python2 or 3)
+### Python 3.x
+Just ```import nesctrl```. It depends on the modules ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse release for the Raspberry Pi (plus the built-in modules ```time``` and '''collections''') so you shouldn't have to care about it. 
 
 Before being able to read the state of the controller, you have to  ``` nesctrl.setup() ``` once (first you have to specify the global constants CLOCK, LATCH and DATA (pin numbers you're using following the Broadcom numbering scheme)) 
 
@@ -29,4 +29,5 @@ Additionally, you might want to call the ``` nesctrl.print_buttons(pressed_butto
 
 Before terminating your program, It's good practice to clean the used GPIO-pins by calling ``` nesctrl.clean()```.
 
-
+### Python 2.x
+Not yet implemented
