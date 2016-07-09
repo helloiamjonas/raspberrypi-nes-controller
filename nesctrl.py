@@ -54,11 +54,11 @@ def read_controller_state():
     gpio.output(LATCH, gpio.HIGH)
     time.sleep(20**-6)  # wait for 2 µs
     gpio.output(LATCH, gpio.LOW)
- 
+    
     pressed_buttons.append(gpio.input(DATA))
     
     # state of remaining 7 buttons
-    for i in range(8):
+    for i in range(7):
         gpio.output(CLOCK, gpio.HIGH)
         time.sleep(20**-6)
         pressed_buttons.append(gpio.input(DATA))
@@ -68,9 +68,14 @@ def read_controller_state():
     return pressed_buttons
 
 
-# assumes controller state array in original order
+def cleanup():
+    gpio.cleanup()
+
+
+
+# (DEBUG-FUNCTION) assumes controller state array in original order
 # -> prints names of pressed buttons and returns them
-def printButtons(pressed_buttons, noprint=False):
+def print_buttons(pressed_buttons, noprint=False):
     button_dict = {0: "A", 1: "B", 2: "SELECT", 3:"START", 4:"UP", 5: "DOWN", 6: "LEFT", 7: "RIGHT"}
     output_string = "Buttons pressed: "
     zero_len = len(output_string)
@@ -84,25 +89,53 @@ def printButtons(pressed_buttons, noprint=False):
         
     print(output_string)
     return output_string
-           
+          
+# (DEBUG-FUNCTION)
+def input_pins():
+    print("Input your pins following the Broadcom Gpio numbering scheme")
+    try:
+        CLOCK = int(input("CLOCK: "))
+        LATCH = int(input("LATCH: "))
+        DATA = int(input("DATA: "))
         
+        if CLOCK == LATCH or CLOCK == DATA or LATCH == DATA:
+            raise ValueError
+    
+    # if the specified input is NaN or if two specified pins are the same -> ValueError 
+    except ValueError:
+        if str(input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
+            input_pins()
+        else:
+            sys.exit()    
 
+
+
+
+# DEBUG-MODE if you call the script directly
 if __name__ == "__main__":
-    # Pin definitions
+    print("You entered the Debug-mode by calling the nesctrl.py script directly. It will output the controller state untill you "
+          "interrupt the execution of the program  with ctrl-c.")
+    
+    # gpio pin definitions (following the bcm numbering scheme)
     CLOCK = 22
     LATCH = 17
     DATA = 4
-    setup()
-
-    while True:
-        try:
-            pressed_buttons = read_controller_state()
-            printButtons(pressed_buttons)
-            time.sleep(0.01) # wait for 1/100th of a second
-        except KeyboardInterrupt:
-            print("Clean GPIO-Pins...")
-            gpio.cleanup()
-            sys.exit()
-            
-            
     
+    custom_pins = str(input("Use custom pin numbers? (y/n)"))
+    if custom_pins.lower() == "y":
+        input_pins()
+    
+    # initial setup, only required once
+    setup()
+    
+    try: 
+        while True:  
+            pressed_buttons = read_controller_state()
+            print(pressed_buttons)
+            print_buttons(pressed_buttons)
+            time.sleep(0.01) # wait for 1/100th of a second
+    
+    except KeyboardInterrupt:
+        cleanup()
+        print("\n Debug-mode terminated.")    
+        sys.exit(0)
