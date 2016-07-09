@@ -43,4 +43,4 @@ Not (yet) implemented.
 ## Todo
 - add docstrings etc.
 - check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems
-- get rid of global variables, its kind of stupid
+- get rid of global variables, it's kind of stupid
