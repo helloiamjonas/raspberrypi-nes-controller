@@ -16,18 +16,23 @@ Here's the pinout:
 ```
 Warning: The NES-controller originally operates with 5 Volts but since the Raspberry only handles a maximum of 3.3 V input-voltage, I'd recommend you to stick with the 3.3 V in case you don't want to destroy your Raspberry Pi (If you gave 5 V input to your NES-controller, it'd ouput 5V and potentially kill your Raspberry.)
 
-## Usage
+## Usage (Python 3.X)
 Using nesctrl.py is easy. 
-### Python 3.x
-Just ```import nesctrl```. It depends on the modules ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse release for the Raspberry Pi (plus the built-in modules ```time``` and '''collections''') so you shouldn't have to care about it. 
+### Importing nesctrl
+Just ```import nesctrl```. It depends on the module ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi (+ dependend on the built-in python-modules ```time``` and ```collections```) so you shouldn't have to care about it. 
 
-Before being able to read the state of the controller, you have to  ``` nesctrl.setup() ``` once (first you have to specify the global constants CLOCK, LATCH and DATA (pin numbers you're using following the Broadcom numbering scheme)) 
+With the nesctrl module imported, the first thing you have to do is to declare the global variables ```CLOCK```, ```LATCH``` and ```DATA``` and assign them to the corresponding gpio numbers you're using (following the Broadcom gpio numbering scheme). 
+Before being able to read the state of the controller, you have to call``` nesctrl.setup() ``` once. 
 
-Then you can call ```nesctrl.read_controller_state()``` whenever you want to read the state of your NES-controller. This function returns a list with 8 elements (one for every button; the same button always has the same index which can therefore be used to identify the pressed button). The element is 0 if the button is pressed, and 1 if it is not pressed 
+Then you can call ```nesctrl.read_controller_state()``` whenever you want to read the state of your NES-controller. This function returns an ordered dictionary where the keys are strings describing the buttons of the NES-controller and the values are ```True``` if the button is pressed or ``` False``` if its not pressed:
 
-Additionally, you might want to call the ``` nesctrl.print_buttons(pressed_buttons)``` functions, where pressed_buttons is the mentioned list.
+``` {"A": True, "B": False, "SELECT": False, "START": False, "UP": True, "DOWN": False, "LEFT": False, "RIGHT": False}``` (In this example, the 'A' and 'UP' buttons are pressed).
 
 Before terminating your program, It's good practice to clean the used GPIO-pins by calling ``` nesctrl.clean()```.
 
-### Python 2.x
-Not yet implemented
+### Run the nesctrl.py as standalone-script: Debug mode
+If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks the pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode with ``` ctrl c```.
+
+
+## Usage (Python 2.x)
+Not (yet) implemented.
