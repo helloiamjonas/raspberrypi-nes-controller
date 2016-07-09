@@ -44,3 +44,4 @@ Not (yet) implemented.
 - add docstrings etc.
 - check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems
 - get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead
+- add a python2 implementation
