@@ -26,12 +26,14 @@ Before being able to read the state of the controller, you have to call``` nesct
 
 Then you can call ```nesctrl.read_controller_state()``` whenever you want to read the state of your NES-controller. This function returns an ordered dictionary where the keys are strings describing the buttons of the NES-controller and the values are ```True``` if the button is pressed or ``` False``` if its not pressed:
 
-``` {"A": True, "B": False, "SELECT": False, "START": False, "UP": True, "DOWN": False, "LEFT": False, "RIGHT": False}``` (In this example, the 'A' and 'UP' buttons are pressed).
+```{"A": True, "B": False, "SELECT": False, "START": False, "UP": True, "DOWN": False, "LEFT": False, "RIGHT": False}``` (In this example, the 'A' and 'UP' buttons are pressed).
 
-Before terminating your program, It's good practice to clean the used GPIO-pins by calling ``` nesctrl.clean()```.
+Before terminating your program, It's good practice to clean the used GPIO-pins by calling ``` nesctrl.cleanup()```.
 
-### Method II: run nescrtl.py directly 
-If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks the pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode with ``` ctrl c```.
+Furthermore, it's perfectly possible to call the ```nesctrl.debug_print_pressed_buttons(controller_state)``` function which prints the pressed buttons, where ```controller_state``` is the dictionary returned by ```nesctrl.read_controller_state()```.
+
+### Method II: run nesctrl.py directly 
+If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks the pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode by pressing ``` ctrl-c```.
 
 Note: The Debug-mode also depends on the built-in module ```sys```.
 
