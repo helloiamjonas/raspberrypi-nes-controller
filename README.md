@@ -16,7 +16,7 @@ Here's the pinout:
 ```
 Warning: The NES-controller originally operates with 5 Volts but since the Raspberry only handles a maximum of 3.3 V input-voltage, I'd recommend you to stick with the 3.3 V in case you don't want to destroy your Raspberry Pi (If you gave 5 V input to your NES-controller, it'd ouput 5V and potentially kill your Raspberry.)
 
-## Usage (Python 3.X)
+## Usage (Python 3.x)
 
 ### Methdod I: import nesctrl to your project
 Just ```import nesctrl```. It depends on the module ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi (+ dependend on the built-in python-modules ```time``` and ```collections```) so you shouldn't have to care about it. 
