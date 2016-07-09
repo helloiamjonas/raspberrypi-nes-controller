@@ -106,10 +106,10 @@ def debug_input_pins():
         LATCH = int(input("LATCH: "))
         DATA = int(input("DATA: "))
         
-        if CLOCK == LATCH or CLOCK == DATA or LATCH == DATA:
+        if (CLOCK == LATCH or CLOCK == DATA or LATCH == DATA) or (CLOCK <= 0 or LATCH <= 0 or DATA <= 0):
             raise ValueError
     
-    # if the specified input is NaN or if two specified pins are the same -> ValueError 
+    # if the specified input is NaN or if two specified pins are the same or < 0 -> ValueError 
     except ValueError:
         if str(input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
             input_pins()
@@ -148,3 +148,4 @@ if __name__ == "__main__":
         cleanup()
         print("\n Debug-mode terminated.")    
         sys.exit(0)
+        
