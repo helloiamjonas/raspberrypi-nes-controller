@@ -40,3 +40,7 @@ Note: The Debug-mode also depends on the built-in module ```sys```.
 
 ## Usage (Python 2.x)
 Not (yet) implemented.
+
+## Todo
+- add docstrings etc.
+- check if all time.sleep() calls are really necessary or could be easily ommited without causing problems
