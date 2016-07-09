@@ -17,8 +17,8 @@ Here's the pinout:
 Warning: The NES-controller originally operates with 5 Volts but since the Raspberry only handles a maximum of 3.3 V input-voltage, I'd recommend you to stick with the 3.3 V in case you don't want to destroy your Raspberry Pi (If you gave 5 V input to your NES-controller, it'd ouput 5V and potentially kill your Raspberry.)
 
 ## Usage (Python 3.X)
-Using nesctrl.py is easy. 
-### Importing nesctrl
+
+### Methdod a) import nesctrl
 Just ```import nesctrl```. It depends on the module ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi (+ dependend on the built-in python-modules ```time``` and ```collections```) so you shouldn't have to care about it. 
 
 With the nesctrl module imported, the first thing you have to do is to declare the global variables ```CLOCK```, ```LATCH``` and ```DATA``` and assign them to the corresponding gpio numbers you're using (following the Broadcom gpio numbering scheme). 
@@ -30,8 +30,10 @@ Then you can call ```nesctrl.read_controller_state()``` whenever you want to rea
 
 Before terminating your program, It's good practice to clean the used GPIO-pins by calling ``` nesctrl.clean()```.
 
-### Run the nesctrl.py as standalone-script: Debug mode
+### Method b) run nescrtl.py directly 
 If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks the pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode with ``` ctrl c```.
+
+Note: The Debug-mode also depends on the built-in module ```sys```.
 
 
 ## Usage (Python 2.x)
