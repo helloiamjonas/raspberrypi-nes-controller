@@ -42,4 +42,4 @@ Not (yet) implemented.
 
 ## Todo
 - add docstrings etc.
-- check if all time.sleep() calls are really necessary or could be easily ommited without causing problems
+- check if all time.sleep( ) calls are really necessary or could be easily ommited without causing problems
