@@ -31,7 +31,7 @@ Before terminating your program, It's good practice to clean the used GPIO-pins 
 
 Furthermore, it's perfectly possible to call the ```nesctrl.debug_print_pressed_buttons(controller_state)``` function which prints the pressed buttons, where ```controller_state``` is the dictionary returned by ```nesctrl.read_controller_state()```.
 
-### Method 2: run nesctrl.py directly 
+### Method 2: run nesctrl.py directly (entering 'debug mode')
 If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks the pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode by pressing ``` ctrl-c```.
 
 Note: The Debug-mode also depends on the built-in module ```sys```.
@@ -43,4 +43,4 @@ Not (yet) implemented.
 ## Todo
 - add docstrings etc.
 - check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems
-- get rid of global variables, it's kind of stupid
+- get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead
