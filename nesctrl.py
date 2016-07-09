@@ -27,7 +27,7 @@ TODO: Is it really necessary to wati 1/10th of a second after every read-cycle?
 
 import RPi.GPIO as gpio
 import time
-import sys
+import collections
 
 # necessary to prepare the controller for the first time
 # -> only sideeffects, no return values 
@@ -42,9 +42,21 @@ def setup():
     gpio.output(CLOCK, gpio.HIGH)
     gpio.output(LATCH, gpio.HIGH)
 
+
 # assumes that the global variables CLOCK, LATCH and DATA are set
 # -> returns list of pressed buttons
 def read_controller_state():
+    """ parses the pressed_buttons_list ->returns dictionary of controller state"""
+    def parse_pressed_buttons(pressed_buttons):
+        # has to be ordered because the position of a element (True for pressed, False for not pressed)
+        # in the pressed_buttons list determines the button it is associated with
+        controller_state = collections.OrderedDict([("A",False),  ("B",False), ("SELECT",False), ("START",False), ("UP",False), ("DOWN",False), ("LEFT",False), ("RIGHT",False)])
+        i = 0
+        for button in controller_state:
+            controller_state[button] = pressed_buttons[i]
+            i += 1
+        return controller_state
+
     pressed_buttons = []
 
     gpio.output(CLOCK, gpio.LOW)
@@ -55,17 +67,19 @@ def read_controller_state():
     time.sleep(20**-6)  # wait for 2 µs
     gpio.output(LATCH, gpio.LOW)
     
-    pressed_buttons.append(gpio.input(DATA))
+    pressed_buttons.append(not gpio.input(DATA)) # 'not' since the input is 0 if the button is pressed
     
     # state of remaining 7 buttons
     for i in range(7):
         gpio.output(CLOCK, gpio.HIGH)
         time.sleep(20**-6)
-        pressed_buttons.append(gpio.input(DATA))
+        pressed_buttons.append(not gpio.input(DATA))
         time.sleep(40**-6)
         gpio.output(CLOCK, gpio.LOW)
-        
-    return pressed_buttons
+    
+    
+    return parse_pressed_buttons(pressed_buttons) 
+            
 
 
 def cleanup():
@@ -75,23 +89,21 @@ def cleanup():
 
 # (DEBUG-FUNCTION) assumes controller state array in original order
 # -> prints names of pressed buttons and returns them
-def print_buttons(pressed_buttons, noprint=False):
-    button_dict = {0: "A", 1: "B", 2: "SELECT", 3:"START", 4:"UP", 5: "DOWN", 6: "LEFT", 7: "RIGHT"}
-    output_string = "Buttons pressed: "
-    zero_len = len(output_string)
-    for i in range(8):
-        if pressed_buttons[i] == 0:
-            output_string += str(button_dict[i]) + " "
-    
-    # print 'None' if no btn pressed
-    if len(output_string) == zero_len:
-        output_string += "None"
-        
-    print(output_string)
-    return output_string
-          
+def debug_print_buttons(controller_state):
+    output_string = "Button(s) pressed:"
+    no_button_pressed = True
+    for button, is_pressed in controller_state.items():
+        if is_pressed:
+            no_button_pressed = False
+            output_string += " " + button
+    if not no_button_pressed:
+        print(output_string)
+    else:
+        print(output_string + " None")
+       
+             
 # (DEBUG-FUNCTION)
-def input_pins():
+def debug_input_pins():
     print("Input your pins following the Broadcom Gpio numbering scheme")
     try:
         CLOCK = int(input("CLOCK: "))
@@ -113,6 +125,8 @@ def input_pins():
 
 # DEBUG-MODE if you call the script directly
 if __name__ == "__main__":
+    import sys
+
     print("You entered the Debug-mode by calling the nesctrl.py script directly. It will output the controller state untill you "
           "interrupt the execution of the program  with ctrl-c.")
     
@@ -123,16 +137,15 @@ if __name__ == "__main__":
     
     custom_pins = str(input("Use custom pin numbers? (y/n)"))
     if custom_pins.lower() == "y":
-        input_pins()
+        debug_input_pins()
     
     # initial setup, only required once
     setup()
     
     try: 
         while True:  
-            pressed_buttons = read_controller_state()
-            print(pressed_buttons)
-            print_buttons(pressed_buttons)
+            controller_state = read_controller_state()
+            debug_print_buttons(controller_state)
             time.sleep(0.01) # wait for 1/100th of a second
     
     except KeyboardInterrupt:
