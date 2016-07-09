@@ -27,9 +27,16 @@ import RPi.GPIO as gpio
 import time
 import collections
 
+# the globals modified with the setup function
+CLOCK, DATA, LATCH = 0, 0, 0
+
 """ necessary to prepare the controller for the first time
     -> only sideeffects, no return values """ 
-def setup():
+def setup(CLOCK, LATCH, DATA):
+    # in order avoid having to set the params for every functions
+    global CLOCK = CLOCK
+    global LATCH = LATCH
+    global DATA = DATA
     # Use Broadcom gpio numbering scheme
     gpio.setmode(gpio.BCM)
 
@@ -105,6 +112,7 @@ def debug_input_pins():
         CLOCK = int(input("CLOCK: "))
         LATCH = int(input("LATCH: "))
         DATA = int(input("DATA: "))
+        return {"CLOCK": CLOCK, "LATCH": LATCH, "DATA": DATA}
         
         if (CLOCK == LATCH or CLOCK == DATA or LATCH == DATA) or (CLOCK <= 0 or LATCH <= 0 or DATA <= 0):
             raise ValueError
@@ -126,17 +134,15 @@ if __name__ == "__main__":
     print("You entered the Debug-mode by calling the nesctrl.py script directly. It will output the controller state untill you "
           "interrupt the execution of the program  with ctrl-c.")
     
-    # gpio pin definitions (following the bcm numbering scheme)
-    CLOCK = 22
-    LATCH = 17
-    DATA = 4
-    
     custom_pins = str(input("Use custom pin numbers? (y/n)"))
     if custom_pins.lower() == "y":
-        debug_input_pins()
-    
-    # initial setup, only required once
-    setup()
+        # use user-defined pins
+        custom_pins = debug_input_pins()
+        setup(custom_pins["CLOCK"], custom_pins{"LATCH"}, custom_pins{"DATA"})
+    else:
+        # use my defualt pins
+        CLOCK, LATCH, DATA= 22, 17, 4
+        setup(CLOCK LATCH, DATA)
     
     try: 
         while True:  
