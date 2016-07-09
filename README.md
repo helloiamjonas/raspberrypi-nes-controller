@@ -20,11 +20,9 @@ Warning: The NES-controller originally operates with 5 Volts but since the Raspb
 ## Usage (Python 3.x)
 
 ### Method 1: import nesctrl to your project
-Just ```import nesctrl```. It depends on the module ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi (+ dependend on the built-in python-modules ```time``` and ```collections```) so you shouldn't have to care about it. 
+Just ```import nesctrl```. It depends on the module ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi so you shouldn't have to care about it. (+ dependend on the built-in python-modules ```time``` and ```collections```) 
 
-With the nesctrl module imported, the first thing you have to do is to declare the global variables ```CLOCK```, ```LATCH``` and ```DATA``` and assign them to the corresponding gpio numbers you're using (following the Broadcom gpio numbering scheme). 
-
-Before being able to read the state of the controller, you have to call``` nesctrl.setup() ``` once. 
+With the nesctrl module imported, the first thing you have to do is to call the function ```nesctrl.setup(clock, latch, data) ``` once to 'initialize' the controller, where the parameters are the numbers of the corresponding gpio pins you're using (following the Broadcom gpio numbering scheme). 
 
 Then you can call ```nesctrl.read_controller_state()``` whenever you want to read the state of your NES-controller. This function returns an ordered dictionary where the keys are strings describing the buttons of the NES-controller and the values are ```True``` if the button is pressed or ``` False``` if its not pressed:
 
@@ -46,5 +44,5 @@ Not (yet) implemented.
 ## Todo
 - add docstrings etc.
 - check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems
-- get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead
+- get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead (Done!)
 - add a python2 implementation
