@@ -44,5 +44,6 @@ Not (yet) implemented.
 ## Todo
 - add docstrings etc.
 - check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems
-- get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead (Done!)
+- get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead **(Done!)**
 - add a python2 implementation
+- add support for 2 controllers
