@@ -116,7 +116,7 @@ def debug_input_pins():
         if (CLOCK == LATCH or CLOCK == DATA or LATCH == DATA) or (CLOCK <= 0 or LATCH <= 0 or DATA <= 0):
             raise ValueError
       
-      return {"CLOCK": CLOCK, "LATCH": LATCH, "DATA": DATA}
+        return {"CLOCK": CLOCK, "LATCH": LATCH, "DATA": DATA}
 
     
     # if the specified input is NaN or if two specified pins are the same or < 0 -> ValueError 
