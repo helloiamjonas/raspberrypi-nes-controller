@@ -1,6 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 """ ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
+THIS IS THE PYTHON2 VERSION OF NESCTRL
+
 By github.com/helloiamjonas
 
 The following code is based on the Arduino-version written in C on http://forum.arduino.cc/index.php?topic=8481.0  
@@ -94,7 +96,7 @@ def debug_print_buttons(controller_state):
     -> prints names of pressed buttons and returns them """
     output_string = "Button(s) pressed:"
     no_button_pressed = True
-    for button, is_pressed in controller_state.items():
+    for button, is_pressed in controller_state.iteritems():  # iteritems() instead of item in python2
         if is_pressed:
             no_button_pressed = False
             output_string += " " + button
@@ -119,7 +121,7 @@ def debug_input_pins():
 
     # if the specified input is NaN or if two specified pins are the same or < 0 -> ValueError 
     except ValueError:
-        if str(input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
+        if str(raw_input("Invalid pin number. Try again? (y/n) ")).lower() == "y":    # use raw_input for python2
             input_pins()
         else:
             sys.exit(1)    
@@ -134,7 +136,7 @@ if __name__ == "__main__":
     print("You entered the Debug-mode by calling the nesctrl.py script directly. It will output the controller state untill you "
           "interrupt the execution of the program  with ctrl-c.")
     
-    custom_pins = str(input("Use custom pin numbers? (y/n)"))
+    custom_pins = str(raw_input("Use custom pin numbers? (y/n)"))       # use raw_input for python2
     if custom_pins.lower() == "y":
         # use user-defined pins
         custom_pins = debug_input_pins()
