@@ -33,7 +33,7 @@ CLOCK, LATCH, DATA = 0, 0, 0
 def setup(clock, latch, data):
     """ necessary to prepare the controller for the first time
     -> only sideeffects, no return values """ 
-    # in order to avoid having to set the params for every functions
+    # in order to avoid having to set the params for every function
     global CLOCK
     global LATCH
     global DATA
