@@ -40,12 +40,12 @@ Note: The Debug-mode also depends on the built-in module ```sys```.
 
 
 ## Usage (Python 2.x)
-Not (yet) implemented.
+You can use the python2 version in the same manner as the python3 implementation after you ```import nesctrl-python2 as nesctrl ``` or call ```nesctrl-python2.py``` directly.
 
 ## Todo
 - add docstrings etc.
 - check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems
 - get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead **(Done!)**
-- add a python2 implementation
+- add a python2 implementation **(Done!)**
 - add support for 2 controllers
 - find alternative for ugly for-loop at line 78
