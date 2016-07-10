@@ -28,12 +28,12 @@ import time
 import collections
 
 # the globals modified with the setup function
-CLOCK, DATA, LATCH = 0, 0, 0
+CLOCK, LATCH, DATA = 0, 0, 0
 
-""" necessary to prepare the controller for the first time
-    -> only sideeffects, no return values """ 
 def setup(CLOCK, LATCH, DATA):
-    # in order avoid having to set the params for every functions
+    """ necessary to prepare the controller for the first time
+    -> only sideeffects, no return values """ 
+    # in order to avoid having to set the params for every functions
     global CLOCK = CLOCK
     global LATCH = LATCH
     global DATA = DATA
@@ -48,33 +48,21 @@ def setup(CLOCK, LATCH, DATA):
     gpio.output(LATCH, gpio.HIGH)
 
 
-""" assumes that the global variables CLOCK, LATCH and DATA are set
-    -> returns list of pressed buttons """
 def read_controller_state():
-    """ parses the pressed_buttons_list -> returns dictionary of controller state """
-    def parse_pressed_buttons(pressed_buttons):
-        # has to be ordered because the position of a element (True for pressed, False for not pressed)
-        # in the pressed_buttons list determines the button it is associated with
-        controller_state = collections.OrderedDict([("A",False),  ("B",False), ("SELECT",False), ("START",False), ("UP",False), ("DOWN",False), ("LEFT",False), ("RIGHT",False)])
-        i = 0
-        for button in controller_state:
-            controller_state[button] = pressed_buttons[i]
-            i += 1
-        return controller_state
-    
+  """ assumes that the global variables CLOCK, LATCH and DATA are set
+    -> returns list of pressed buttons """
+    # setting things up
     pressed_buttons = []
-
     gpio.output(CLOCK, gpio.LOW)
     gpio.output(LATCH, gpio.LOW)
 
-    # state of the first button
+    # recieve state of the first button
     gpio.output(LATCH, gpio.HIGH)
     time.sleep(20**-6)  # wait for 2 µs
     gpio.output(LATCH, gpio.LOW)
-    
     pressed_buttons.append(not gpio.input(DATA)) # 'not' since the input is 0 if the button is pressed
     
-    # state of remaining 7 buttons
+    # recieve state of remaining 7 buttons
     for i in range(7):
         gpio.output(CLOCK, gpio.HIGH)
         time.sleep(20**-6)
@@ -82,17 +70,27 @@ def read_controller_state():
         time.sleep(40**-6)
         gpio.output(CLOCK, gpio.LOW)
     
-    
-    return parse_pressed_buttons(pressed_buttons) 
+    # 'processe' the pressed_buttons list into an easier to use dict:
+    # Note: the controller_state dict has to be ordered because the position of a element (True for pressed, False for not pressed)
+    # in the pressed_buttons list determines the button it is associated with (e.g element at pos. 0 associated with "A" etc.) 
+    controller_state = collections.OrderedDict([("A",False),  ("B",False), ("SELECT",False), ("START",False), ("UP",False), ("DOWN",False), ("LEFT",False), ("RIGHT",False)])
+    i = 0
+    for button in controller_state:
+        controller_state[button] = pressed_buttons[i]
+        i += 1
+        
+    return controller_state  
             
-            
+  
 def cleanup():
+    """ kind of self explanatory: clean gpio-registers 
+    -> not return value, only sideeffects """ 
     gpio.cleanup()
 
 
-""" (DEBUG-FUNCTION) assumes controller state array in original order
-    -> prints names of pressed buttons and returns them """
 def debug_print_buttons(controller_state):
+  """ (DEBUG-FUNCTION) assumes controller state array in original order
+    -> prints names of pressed buttons and returns them """
     output_string = "Button(s) pressed:"
     no_button_pressed = True
     for button, is_pressed in controller_state.items():
@@ -105,8 +103,8 @@ def debug_print_buttons(controller_state):
         print(output_string + " None")
        
              
-""" (DEBUG-FUNCTION) asks user of debug mode for pins to input """
 def debug_input_pins():
+  """ (DEBUG-FUNCTION) asks user of debug mode for pins to input """
     print("Input your pins following the Broadcom gpio numbering scheme")
     try:
         CLOCK = int(input("CLOCK: "))
@@ -118,13 +116,12 @@ def debug_input_pins():
       
         return {"CLOCK": CLOCK, "LATCH": LATCH, "DATA": DATA}
 
-    
     # if the specified input is NaN or if two specified pins are the same or < 0 -> ValueError 
     except ValueError:
         if str(input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
             input_pins()
         else:
-            sys.exit()    
+            sys.exit(1)    
 
 
 
@@ -144,7 +141,7 @@ if __name__ == "__main__":
     else:
         # use my defualt pins
         CLOCK, LATCH, DATA= 22, 17, 4
-        setup(CLOCK LATCH, DATA)
+        setup(CLOCK, LATCH, DATA)
     
     try: 
         while True:  
