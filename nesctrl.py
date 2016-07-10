@@ -30,13 +30,14 @@ import collections
 # the globals modified with the setup function
 CLOCK, LATCH, DATA = 0, 0, 0
 
-def setup(CLOCK, LATCH, DATA):
+def setup(clock, latch, data):
     """ necessary to prepare the controller for the first time
     -> only sideeffects, no return values """ 
     # in order to avoid having to set the params for every functions
-    global CLOCK = CLOCK
-    global LATCH = LATCH
-    global DATA = DATA
+    global CLOCK
+    global LATCH
+    global DATA
+    CLOCK, LATCH, DATA = clock, latch, data
     # Use Broadcom gpio numbering scheme
     gpio.setmode(gpio.BCM)
 
@@ -49,7 +50,7 @@ def setup(CLOCK, LATCH, DATA):
 
 
 def read_controller_state():
-  """ assumes that the global variables CLOCK, LATCH and DATA are set
+    """ assumes that the global variables CLOCK, LATCH and DATA are set
     -> returns list of pressed buttons """
     # setting things up
     pressed_buttons = []
@@ -89,7 +90,7 @@ def cleanup():
 
 
 def debug_print_buttons(controller_state):
-  """ (DEBUG-FUNCTION) assumes controller state array in original order
+    """ (DEBUG-FUNCTION) assumes controller state array in original order
     -> prints names of pressed buttons and returns them """
     output_string = "Button(s) pressed:"
     no_button_pressed = True
@@ -104,7 +105,7 @@ def debug_print_buttons(controller_state):
        
              
 def debug_input_pins():
-  """ (DEBUG-FUNCTION) asks user of debug mode for pins to input """
+    """ (DEBUG-FUNCTION) asks user of debug mode for pins to input """
     print("Input your pins following the Broadcom gpio numbering scheme")
     try:
         CLOCK = int(input("CLOCK: "))
@@ -137,7 +138,7 @@ if __name__ == "__main__":
     if custom_pins.lower() == "y":
         # use user-defined pins
         custom_pins = debug_input_pins()
-        setup(custom_pins["CLOCK"], custom_pins{"LATCH"}, custom_pins{"DATA"})
+        setup(custom_pins["CLOCK"], custom_pins["LATCH"], custom_pins["DATA"])
     else:
         # use my defualt pins
         CLOCK, LATCH, DATA= 22, 17, 4
