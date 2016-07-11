@@ -73,7 +73,7 @@ def read_controller_state():
         time.sleep(40**-6)
         gpio.output(CLOCK, gpio.LOW)
     
-    # 'processe' the pressed_buttons list into an easier to use dict:
+    # 'process' the pressed_buttons list into an easier to use dict:
     # Note: the controller_state dict has to be ordered because the position of a element (True for pressed, False for not pressed)
     # in the pressed_buttons list determines the button it is associated with (e.g element at pos. 0 associated with "A" etc.) 
     controller_state = collections.OrderedDict([("A",False),  ("B",False), ("SELECT",False), ("START",False), ("UP",False), ("DOWN",False), ("LEFT",False), ("RIGHT",False)])
