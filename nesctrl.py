@@ -75,10 +75,8 @@ def read_controller_state():
     # Note: the controller_state dict has to be ordered because the position of a element (True for pressed, False for not pressed)
     # in the pressed_buttons list determines the button it is associated with (e.g element at pos. 0 associated with "A" etc.) 
     controller_state = collections.OrderedDict([("A",False),  ("B",False), ("SELECT",False), ("START",False), ("UP",False), ("DOWN",False), ("LEFT",False), ("RIGHT",False)])
-    i = 0
-    for button in controller_state:
+    for i, button in enumerate(controller_state):
         controller_state[button] = pressed_buttons[i]
-        i += 1
         
     return controller_state  
             
