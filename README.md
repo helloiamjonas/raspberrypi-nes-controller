@@ -48,4 +48,4 @@ You can use the python2 version in the same manner as the python3 implementation
 - get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead **(Done!)**
 - add a python2 implementation **(Done!)**
 - add support for 2 controllers
-- find alternative for ugly for-loop at line 78
+- find alternative for ugly for-loop at line 78 **(Done!)**
