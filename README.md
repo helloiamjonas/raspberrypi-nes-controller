@@ -45,8 +45,8 @@ You can use the python2 version in the same manner as the python3 implementation
 ## Todo
 - add support for 2 controllers
 - merge the python3/2 version into one
-- add docstrings etc (**(Done)**).
-- check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems (**(Done!)**)
+- add docstrings etc **(Done)**.
+- check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems **(Done!)**
 - get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead **(Done!)**
 - add a python2 implementation **(Done!)**
 - find alternative for ugly for-loop at line 78 **(Done!)**
