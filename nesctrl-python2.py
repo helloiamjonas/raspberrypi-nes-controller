@@ -33,27 +33,53 @@ import collections
 CLOCK, LATCH, DATA = 0, 0, 0
 
 def setup(clock, latch, data):
-    """ necessary to prepare the controller for the first time
-    -> only sideeffects, no return values """ 
+    """ 
+    Note: 
+        It's necessary to call this function one time before being able to call any other function of this module. 
+        (It sets up the specified pins and declares the globals CLOCK, LATCH and DATA to make the pins numbers 
+        accesible by other functions of this module) 
+    
+    Args: 
+        clock (int):  The pin number (following the broadcom numbering scheme) of the pin connected with the clock pin  
+        latch (int): The pin number of the pin connected with the latch pin
+        data (int); The pin number of the pin connected with the data pin
+        
+    Returns: 
+        bool: True if init was successfull, False otherwise.
+    """
     # in order to avoid having to set the params for every functions
-    global CLOCK
-    global LATCH
-    global DATA
-    CLOCK, LATCH, DATA = clock, latch, data
-    # Use Broadcom gpio numbering scheme
-    gpio.setmode(gpio.BCM)
+    try:
+        global CLOCK
+        global LATCH
+        global DATA
+        CLOCK, LATCH, DATA = clock, latch, data
+        # Use Broadcom gpio numbering scheme
+        gpio.setmode(gpio.BCM)
 
-    gpio.setup(CLOCK, gpio.OUT)
-    gpio.setup(LATCH, gpio.OUT)
-    gpio.setup(DATA, gpio.IN)
+        gpio.setup(CLOCK, gpio.OUT)
+        gpio.setup(LATCH, gpio.OUT)
+        gpio.setup(DATA, gpio.IN)
 
-    gpio.output(CLOCK, gpio.HIGH)
-    gpio.output(LATCH, gpio.HIGH)
-
+        gpio.output(CLOCK, gpio.HIGH)
+        gpio.output(LATCH, gpio.HIGH)
+      
+        return True
+    
+    except:
+        return False
 
 def read_controller_state():
-    """ assumes that the global variables CLOCK, LATCH and DATA are set
-    -> returns list of pressed buttons """
+    """ 
+    Note: 
+        Assumes the globals CLOCK, LATCH and DATA are set and the mode of the pins 
+        are set properly (both accomplished by calling the setup() function)
+    Args:
+        None
+      
+    Returns: 
+        dict: contains the state of the pressed buttons, where a key (string) corresponds to the name of a button
+        of the NES controller in uppercase letters and its value (bool) indicates whether it was pressed (True) or not (False)
+    """
     # setting things up
     pressed_buttons = []
     gpio.output(CLOCK, gpio.LOW)
@@ -85,34 +111,71 @@ def read_controller_state():
             
   
 def cleanup():
-    """ kind of self explanatory: clean gpio-registers 
-    -> not return value, only sideeffects """ 
-    gpio.cleanup()
-
+    """ 
+    Note: It's good practice to call this as soon as you don't need to read the buttons of your NES-controller anymore
+    to free the GPIO pins.
+    
+    Args:
+        None
+        
+    Returns: 
+        bool: True if cleaned the pin succesfully, False otherwise.
+      
+    """ 
+    try:
+        gpio.cleanup()
+        return True
+    
+    except:
+        return False
 
 def debug_print_buttons(controller_state):
-    """ (DEBUG-FUNCTION) assumes controller state array in original order
-    -> prints names of pressed buttons and returns them """
+    """
+    Note: 
+        Assumes the globals CLOCK, LATCH and DATA are set and the mode of the pins 
+        are set properly (both accomplished by calling the setup() function
+        
+        (DEBUG-FUNCTION) assumes controller state array in original order and prints the presse buttons 
+    
+    Args: 
+        controller_state (dict): The dict by the read_controller_state() function
+        
+    Returns:
+        string: The sentence 'Buttons(s) pressed: ' followed by the name of the pressed buttons or 'None' 
+   """
+      
     output_string = "Button(s) pressed:"
     no_button_pressed = True
     for button, is_pressed in controller_state.iteritems():  # iteritems() instead of item in python2
         if is_pressed:
             no_button_pressed = False
             output_string += " " + button
+    
     if not no_button_pressed:
         print(output_string)
+        return output_string
     else:
         print(output_string + " None")
+        return output_string
        
              
 def debug_input_pins():
-    """ (DEBUG-FUNCTION) asks user of debug mode for pins to input """
+    """ 
+    Note: 
+        (DEBUG-FUNCTION) asks user of debug mode for pins to input 
+    
+    Args: 
+        None
+    
+    Returns: 
+        None
+    """
     print("Input your pins following the Broadcom gpio numbering scheme")
     try:
         CLOCK = int(input("CLOCK: "))
         LATCH = int(input("LATCH: "))
         DATA = int(input("DATA: "))
-        
+        # rudimentary input validation
         if (CLOCK == LATCH or CLOCK == DATA or LATCH == DATA) or (CLOCK <= 0 or LATCH <= 0 or DATA <= 0):
             raise ValueError
       
@@ -124,10 +187,10 @@ def debug_input_pins():
             input_pins()
         else:
             sys.exit(1)    
-
-
-
-
+            
+            
+            
+            
 # DEBUG-MODE if you call the script directly
 if __name__ == "__main__":
     import sys
