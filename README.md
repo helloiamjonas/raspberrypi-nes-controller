@@ -18,7 +18,7 @@ Warning: The NES-controller originally operates with 5 Volts but since the Raspb
 
 ![Image](https://cloud.githubusercontent.com/assets/20270187/16710403/fe80800a-462c-11e6-8d20-03cd5cbd9162.jpg)
 
-## Usage (Python 3.x)
+## Usage (Python 3.x and 2.x)
 
 ### Method 1: import nesctrl to your project
 Just ```import nesctrl```. It depends on the module ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi so you shouldn't have to care about it. (+ dependend on the built-in python-modules ```time``` and ```collections```) 
@@ -36,15 +36,13 @@ Furthermore, it's perfectly possible to call the ```nesctrl.debug_print_pressed_
 ### Method 2: run nesctrl.py directly (entering the debug mode)
 If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks which pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode by pressing ``` ctrl-c```.
 
-Note: The Debug-mode also depends on the built-in module ```sys```.
+Note: Although the code was originally designed to work with python 3, it should be perfectly fine to run it with python 2. 
+For the ```debug_print_controller_state()``` function and the debug mode the module checks the used version, since python 2.x uses ```raw_input()``` insted of ```input()``` and uses ```iteritems()``` instead of ```items()```. Besides that, there were no other modifications necessary for python 3.x/2.x compatibility
 
-
-## Usage (Python 2.x)
-You can use the python2 version in the same manner as the python3 implementation after you ```import nesctrl-python2 as nesctrl ``` or call ```nesctrl-python2.py``` directly.
 
 ## Todo
 - add support for 2 controllers
-- merge the python3/2 version into one
+- merge the python3/2 version into one **(Done!)**
 - add docstrings etc **(Done)**.
 - check if all ```time.sleep()``` calls are really necessary or could be easily ommited without causing problems **(Done!)**
 - get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead **(Done!)**
