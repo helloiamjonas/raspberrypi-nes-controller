@@ -22,7 +22,7 @@ Warning: The NES-controller originally operates with 5 Volts but since the Raspb
 **Note:** Although the code was originally designed to work with python 3, it should be perfectly fine to run it with python 2 (for the ```debug_print_controller_state()``` function and the debug mode the module checks the used version, since python 2.x uses ```raw_input()``` insted of ```input()``` and uses ```iteritems()``` instead of ```items()```. Besides that, there were no other modifications necessary for python 3.x/2.x compatibility).
 
 ### Method 1: import nesctrl to your project
-Just ```import nesctrl```. It depends on the module ```RPi-GPIO``` which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi so you shouldn't have to care about it. (+ dependend on the built-in python-modules ```time``` and ```collections```) 
+Just ```import nesctrl```. It depends on the built-in python-modules ```time```,  ```collections``` and ```sys```. Furthermore, it depends on the  ```RPi-GPIO```-module which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi so you shouldn't have to care about it.
 
 With the nesctrl module imported, the first thing you have to do is to call the function ```nesctrl.setup(clock, latch, data) ``` once to 'initialize' the controller, where the parameters are the numbers of the corresponding gpio pins you're using (following the Broadcom gpio numbering scheme). 
 
