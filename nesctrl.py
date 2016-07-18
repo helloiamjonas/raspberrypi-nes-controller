@@ -127,7 +127,8 @@ def debug_input_pins():
             CLOCK = int(input("CLOCK: "))
             LATCH = int(input("LATCH: "))
             DATA = int(input("DATA: "))
-            
+        
+        # rudimentary 'input validation'      
         if (CLOCK == LATCH or CLOCK == DATA or LATCH == DATA) or (CLOCK <= 0 or LATCH <= 0 or DATA <= 0):
             raise ValueError
       
