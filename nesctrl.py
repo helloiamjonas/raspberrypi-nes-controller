@@ -5,9 +5,9 @@ By Jonas U.
 
 The following code is based on the Arduino-version written in C on "http://forum.arduino.cc/index.php?topic=8481.0"  
 (-> so this person did the actual work of figuring out how a NES-controller works, thank you kind stranger).
+
 I remind you: this code comes with ABSOLUTELY NO WARRANTY, I am not responsible for any broken NES-controllers
 or Raspberry-Pies (pun intended) or any other possible damage caused by this script.
-
 
 Pinout of the NES-Controller:
   __________ 
@@ -22,6 +22,10 @@ Pinout of the NES-Controller:
 
 ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
 """
+_author__ = "Jonas U."
+__credits__ = ["This guy: http://forum.arduino.cc/index.php?topic=8481.0"]
+__license__ = "GPL"
+
 # built-in
 import time
 import sys
