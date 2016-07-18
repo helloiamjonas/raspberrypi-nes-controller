@@ -91,10 +91,19 @@ def debug_print_buttons(controller_state):
     -> prints names of pressed buttons and returns them """
     output_string = "Button(s) pressed:"
     no_button_pressed = True
-    for button, is_pressed in controller_state.items():
-        if is_pressed:
-            no_button_pressed = False
-            output_string += " " + button
+    # for python 2.x, items() is iteritems()
+    if sys.version_info[0] < 3:
+        for button, is_pressed in controller_state.iteritems():
+            if is_pressed:
+                no_button_pressed = False
+                output_string += " " + button
+    # python 3.x uses items()
+    else:
+        for button, is_pressed in controller_state.items():
+            if is_pressed:
+                no_button_pressed = False
+                output_string += " " + button
+    
     if not no_button_pressed:
         print(output_string)
     else:
@@ -105,10 +114,18 @@ def debug_input_pins():
     """ (DEBUG-FUNCTION) asks user of debug mode for pins to input """
     print("Input your pins following the Broadcom gpio numbering scheme")
     try:
-        CLOCK = int(input("CLOCK: "))
-        LATCH = int(input("LATCH: "))
-        DATA = int(input("DATA: "))
+        # python 2.x uses raw_input()
+        if sys.version_info[0] < 3:
+            CLOCK = int(raw_input("CLOCK: "))
+            LATCH = int(raw_input("LATCH: "))
+            DATA = int(raw_input("DATA: "))
         
+        # python 3.x uses input()
+        else:
+            CLOCK = int(input("CLOCK: "))
+            LATCH = int(input("LATCH: "))
+            DATA = int(input("DATA: "))
+            
         if (CLOCK == LATCH or CLOCK == DATA or LATCH == DATA) or (CLOCK <= 0 or LATCH <= 0 or DATA <= 0):
             raise ValueError
       
@@ -126,8 +143,7 @@ def debug_input_pins():
 
 # DEBUG-MODE if you call the script directly
 if __name__ == "__main__":
-    import sys
-
+  
     print("You entered the Debug-mode by calling the nesctrl.py script directly. It will output the controller state untill you "
           "interrupt the execution of the program  with ctrl-c.")
     
