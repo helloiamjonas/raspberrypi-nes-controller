@@ -68,7 +68,6 @@ def read_controller_state():
         gpio.output(CLOCK, gpio.HIGH)
         time.sleep(20**-6)
         pressed_buttons.append(not gpio.input(DATA))
-        time.sleep(40**-6)
         gpio.output(CLOCK, gpio.LOW)
     
     # 'process' the pressed_buttons list into an easier to use dict:
