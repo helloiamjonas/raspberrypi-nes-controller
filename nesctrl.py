@@ -1,18 +1,18 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """ ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
-By github.com/helloiamjonas
+By Jonas U.
 
-The following code is based on the Arduino-version written in C on http://forum.arduino.cc/index.php?topic=8481.0  
-(-> so this person did the actual work, thank you kind stranger)
-I remind you: this code comes with ABSOLUTELY NO WARRANTY, I don't want to be responsible for any broken NES-controllers
-Feel free to use the code in any way as long your use of it doesn't harm any living organism.
+The following code is based on the Arduino-version written in C on "http://forum.arduino.cc/index.php?topic=8481.0"  
+(-> so this person did the actual work of figuring out how a NES-controller works, thank you kind stranger).
+I remind you: this code comes with ABSOLUTELY NO WARRANTY, I am not responsible for any broken NES-controllers
+or Raspberry-Pies (pun intended) or any other possible damage caused by this script.
 
 
 Pinout of the NES-Controller:
   __________ 
  /          .
-/      OV   . 
+/      0V   . 
 . 5V   CLOCK.
 . x    LATCH.
 . x    DATA .
@@ -22,10 +22,12 @@ Pinout of the NES-Controller:
 
 ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
 """
-
-import RPi.GPIO as gpio
+# built-in
 import time
+import sys
 import collections
+# preinstalled on raspian wheezy/jessie
+import RPi.GPIO as gpio
 
 # the globals modified with the setup function
 CLOCK, LATCH, DATA = 0, 0, 0
