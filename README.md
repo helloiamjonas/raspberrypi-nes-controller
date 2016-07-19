@@ -34,6 +34,8 @@ Before terminating your program, It's good practice to clean the used GPIO-pins 
 
 Furthermore, it's perfectly possible to call the ```nesctrl.debug_print_pressed_buttons(controller_state)``` function which prints the pressed buttons, where ```controller_state``` is the dictionary returned by ```nesctrl.read_controller_state()```.
 
+You can convince yourself that it's quite straightforward to use nesctrl by looking at ```example.py ```.
+
 ### Method 2: run nesctrl.py directly (entering the debug mode)
 If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks which pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode by pressing ``` ctrl-c```.
 
