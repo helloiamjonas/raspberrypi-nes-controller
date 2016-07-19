@@ -140,10 +140,16 @@ def debug_input_pins():
 
     # if the specified input is NaN or if two specified pins are the same or < 0 -> ValueError 
     except ValueError:
-        if str(input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
-            input_pins()
+	# use raw_input() for python 2.x
+        if sys.version_info[0] < 3:
+	    if str(raw_input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
+                input_pins()
+       # python 3.x uses input()
         else:
-            sys.exit(1)    
+	    if str(input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
+                input_pins()
+            else:
+                sys.exit(1)    
 
 
 
@@ -154,7 +160,13 @@ if __name__ == "__main__":
     print("You entered the Debug-mode by calling the nesctrl.py script directly. It will output the controller state untill you "
           "interrupt the execution of the program  with ctrl-c.")
     
-    custom_pins = str(input("Use custom pin numbers? (y/n)"))
+    # python 2.x
+    if sys.version_info[0] < 3:
+        custom_pins = str(raw_input("Use custom pin numbers? (y/n)"))
+    # pyhton 3.x
+   
+    else:
+        custom_pins = str(input("Use custom pin numbers? (y/n)"))
     if custom_pins.lower() == "y":
         # use user-defined pins
         custom_pins = debug_input_pins()
