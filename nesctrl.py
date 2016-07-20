@@ -22,7 +22,7 @@ Pinout of the NES-Controller:
 
 ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
 """
-_author__ = "Jonas U."
+__author__ = "Jonas U."
 __credits__ = ["This guy: http://forum.arduino.cc/index.php?topic=8481.0"]
 __license__ = "BSD 3-clause"
 
