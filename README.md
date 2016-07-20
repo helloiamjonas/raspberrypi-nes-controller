@@ -19,9 +19,6 @@ Warning: The NES-controller originally operates with 5 Volts but since the Raspb
 ![Image](https://cloud.githubusercontent.com/assets/20270187/16710403/fe80800a-462c-11e6-8d20-03cd5cbd9162.jpg)
 
 ## Usage (Python 3.x and 2.x)
-**Note:** Although the code was originally designed to work with python 3, it should be perfectly fine to run it with python 2 (for the ```debug_print_controller_state()``` function and the debug mode the module checks the used version, since python 2.x uses ```raw_input()``` insted of ```input()``` and uses ```iteritems()``` instead of ```items()```. Besides that, there were no other modifications necessary for python 3.x/2.x compatibility).
-
-You can convince yourself that it's quite straightforward to use nesctrl by looking at ```example.py ```.
 
 ### Method 1: import nesctrl to your project
 Just ```import nesctrl```. It depends on the built-in python-modules ```time```,  ```collections``` and ```sys```. Furthermore, it depends on the  ```RPi-GPIO```-module which comes pre-installed with the current Raspian-Jesse and Wheezy releases for the Raspberry Pi so you shouldn't have to care about it.
@@ -36,8 +33,13 @@ Before terminating your program, It's good practice to clean the used GPIO-pins 
 
 Furthermore, it's perfectly possible to call the ```nesctrl.debug_print_pressed_buttons(controller_state)``` function which prints the pressed buttons, where ```controller_state``` is the dictionary returned by ```nesctrl.read_controller_state()```.
 
+You can convince yourself that it's quite straightforward to use nesctrl by looking at ```example.py ```.
+
 ### Method 2: run nesctrl.py directly (entering the debug mode)
 If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks which pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode by pressing ``` ctrl-c```.
+
+### Compatibility:
+**Note:** Although the code was originally designed to work with python 3, it should be perfectly fine to run it with python 2 (for the ```debug_print_controller_state()``` function and the debug mode the module checks the used version, since python 2.x uses ```raw_input()``` insted of ```input()``` and uses ```iteritems()``` instead of ```items()```. Besides that, there were no other modifications necessary for python 3.x/2.x compatibility).
 
 
 ## Todo
