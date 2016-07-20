@@ -1,8 +1,6 @@
 # Use a NES-controller with your Raspberry Pi
 I've tried to connect a NES-controller with my Raspberry Pi (I used the B-revision of the first model) which turned out to be pretty easy due to the fact that other persons figured out how NES-controllers work: my code is just the python3 implementation of the logic behind [some C code](http://forum.arduino.cc/index.php?topic=8481.0) written for the Arduino-platform, so thanks to the person who wrote this gem.
 
-**Note:** The contents of this repository are licensed under a BSD 3-clause license.
-
 
 ## Connect the controller with your GPIO pins
 Just connect the pins directly with the NES-controller, no electrical-engineering degree required.
@@ -51,3 +49,6 @@ If you call the nesctrl.py script directly instead of importing it to your own c
 - get rid of the necissity for the declaration of global variables (CLOCK, LATCH, DATA), pass them as function params instead **(Done!)**
 - add a python2 implementation **(Done!)**
 - find alternative for ugly for-loop at line 78 **(Done!)**
+
+
+**Note:** The contents of this repository are licensed under a BSD 3-clause license.
