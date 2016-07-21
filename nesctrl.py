@@ -143,11 +143,11 @@ def debug_input_pins():
 	# use raw_input() for python 2.x
         if sys.version_info[0] < 3:
             if str(raw_input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
-                input_pins()
+                debug_input_pins()
        # python 3.x uses input()
         else:
             if str(input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
-                input_pins()
+                debug_input_pins()
             else:
                 sys.exit(1)    
 
