@@ -52,5 +52,6 @@ If you call the nesctrl.py script directly instead of importing it to your own c
 - add a python2 implementation **(Done!)**
 - find alternative for ugly for-loop at line 78 **(Done!)**
 
+
 ## License
-The contents of this repository are licensed under a BSD 3-clause license (see 'LICENSE' for further details)
+Nesctrl is beerware licensed (see LICENSE). 
