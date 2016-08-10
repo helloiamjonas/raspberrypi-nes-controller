@@ -39,8 +39,6 @@ import collections
 # preinstalled on raspian wheezy/jessie
 import RPi.GPIO as gpio
 
-# the globals modified with the setup function
-CLOCK, LATCH, DATA = 0, 0, 0
 
 def setup(clock, latch, data):
     """ necessary to prepare the controller for the first time
