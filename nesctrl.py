@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-""" ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
-By Jonas U.
+""" 
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * <github.com/helloiamjonas> wrote this file.  As long as you retain this notice you
+ * can do whatever you want with this stuff. If we meet some day, and you think
+ * this stuff is worth it, you can buy me a beer in return.   Jonas U.
+ * ----------------------------------------------------------------------------
 
 The following code is based on the Arduino-version written in C on "http://forum.arduino.cc/index.php?topic=8481.0"  
 (-> so this person did the actual work of figuring out how a NES-controller works, thank you kind stranger).
@@ -22,9 +27,10 @@ Pinout of the NES-Controller:
 
 ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
 """
+
 __author__ = "Jonas U."
 __credits__ = ["This guy: http://forum.arduino.cc/index.php?topic=8481.0"]
-__license__ = "BSD 3-clause"
+__license__ = "beerware"
 
 # built-in
 import time
@@ -87,7 +93,7 @@ def read_controller_state():
             
   
 def cleanup():
-    """ kind of self explanatory: clean gpio-registers 
+    """ kind of self explanatory: cleans the gpio-registers 
     -> not return value, only sideeffects """ 
     gpio.cleanup()
 
