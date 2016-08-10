@@ -39,7 +39,7 @@ You can convince yourself that it's quite straightforward to use nesctrl by look
 If you call the nesctrl.py script directly instead of importing it to your own code, you enter a 'debug mode' - a simple command line inteface which first asks which pins you've specified for  ```CLOCK```, ```LATCH``` and ```DATA```and which subsequentially outputs the pressed buttons of your controller forevermore. Quit the debug mode by pressing ``` ctrl-c```.
 
 ### Compatibility:
-**Note:** Although the code was originally designed to work with python 3, it should be perfectly fine to run it with python 2 (for the ```debug_print_controller_state()``` function and the debug mode the module checks the used version, since python 2.x uses ```raw_input()``` insted of ```input()``` and uses ```iteritems()``` instead of ```items()```. Besides that, there were no other modifications necessary for python 3.x/2.x compatibility).
+**Note:** Although the code was originally designed to work with python 3.x, it should be perfectly fine to run it with python 2.x (for the ```debug_print_controller_state()``` function and the debug mode the module checks the used version, since python 2.x uses ```raw_input()``` instead of ```input()``` and uses ```iteritems()``` instead of ```items()```. Besides that, there were no other modifications necessary for python 3.x/2.x compatibility).
 
 
 ## Todo
