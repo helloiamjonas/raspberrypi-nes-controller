@@ -54,4 +54,4 @@ If you call the nesctrl.py script directly instead of importing it to your own c
 
 
 ## License
-Nesctrl is beerware licensed (see LICENSE). 
+Nesctrl is beerware licensed. 
