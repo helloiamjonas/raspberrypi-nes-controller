@@ -14,4 +14,4 @@ try:
             print("'A' button not pressed.")
 
 except KeyboardInterrupt:
-        nesctrl.cleanup()
+    nesctrl.cleanup()
