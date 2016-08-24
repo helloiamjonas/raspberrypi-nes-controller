@@ -1,18 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """ 
- * ----------------------------------------------------------------------------
+ * -----------------------------------------------------------------------------------
  * "THE BEER-WARE LICENSE" (Revision 42):
  * <github.com/helloiamjonas> wrote this file.  As long as you retain this notice you
  * can do whatever you want with this stuff. If we meet some day, and you think
  * this stuff is worth it, you can buy me a beer in return.   Jonas U.
- * ----------------------------------------------------------------------------
-
-The following code is based on the Arduino-version written in C on "http://forum.arduino.cc/index.php?topic=8481.0"  
-(-> so this person did the actual work of figuring out how a NES-controller works, thank you kind stranger).
-
-I remind you: this code comes with ABSOLUTELY NO WARRANTY, I am not responsible for any broken NES-controllers
-or Raspberry-Pies (pun intended) or any other possible damage caused by this script.
+ * -----------------------------------------------------------------------------------
 
 Pinout of the NES-Controller:
   __________ 
@@ -81,9 +75,11 @@ def read_controller_state():
         gpio.output(CLOCK, gpio.LOW)
     
     # 'transform' the pressed_buttons list into an easier to use dict:
-    # Note: the controller_state dict has to be ordered because the position of a element (True for pressed, False for not pressed)
-    # in the pressed_buttons list determines the button it is associated with (e.g element at pos. 0 associated with "A" etc.) 
-    controller_state = collections.OrderedDict([("A",False),  ("B",False), ("SELECT",False), ("START",False), ("UP",False), ("DOWN",False), ("LEFT",False), ("RIGHT",False)])
+    # Note: the controller_state dict has to be ordered because the position of a element  
+    # (True for pressed, False for not pressed)in the pressed_buttons list determines the button it is associated with 
+    # (e.g element at pos. 0 associated with "A" etc.) 
+    controller_state = collections.OrderedDict([("A",False),  ("B",False), ("SELECT",False), ("START",False),
+    						("UP",False), ("DOWN",False), ("LEFT",False), ("RIGHT",False)])
     for i, button in enumerate(controller_state):
         controller_state[button] = pressed_buttons[i]
         
@@ -101,6 +97,7 @@ def debug_print_buttons(controller_state):
     -> prints names of pressed buttons and returns them """
     output_string = "Button(s) pressed:"
     no_button_pressed = True
+    
     # for python 2.x, items() is iteritems()
     if sys.version_info[0] < 3:
         for button, is_pressed in controller_state.iteritems():
@@ -148,12 +145,14 @@ def debug_input_pins():
         if sys.version_info[0] < 3:
             if str(raw_input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
                 debug_input_pins()
+            else:
+            	sys.exit(0)
        # python 3.x uses input()
         else:
             if str(input("Invalid pin number. Try again? (y/n) ")).lower() == "y":
                 debug_input_pins()
             else:
-                sys.exit(1)    
+                sys.exit(0)    
 
 
 
@@ -167,10 +166,10 @@ if __name__ == "__main__":
     # python 2.x
     if sys.version_info[0] < 3:
         custom_pins = str(raw_input("Use custom pin numbers? (y/n)"))
-    # pyhton 3.x
-   
+    # python 3.x
     else:
         custom_pins = str(input("Use custom pin numbers? (y/n)"))
+    
     if custom_pins.lower() == "y":
         # use user-defined pins
         custom_pins = debug_input_pins()
@@ -184,7 +183,7 @@ if __name__ == "__main__":
         while True:  
             controller_state = read_controller_state()
             debug_print_buttons(controller_state)
-            time.sleep(0.01) # wait for 1/100th of a second
+            time.sleep(0.01)
     
     except KeyboardInterrupt:
         cleanup()
